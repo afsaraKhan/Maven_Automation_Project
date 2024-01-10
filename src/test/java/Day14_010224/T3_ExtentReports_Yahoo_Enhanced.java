@@ -20,4 +20,9 @@ public class T3_ExtentReports_Yahoo_Enhanced extends testBase {
         System.out.println("The checkbox is checked: " + isStaySignedInChecked);
         Reusable_Methods_Logger.isConditionTrue(isStaySignedInChecked, logger);
     }//end of tc001
+
+    @Test
+    public void tc002_testtingGitHub() {
+        //practice committing
+    }
 }//end of class

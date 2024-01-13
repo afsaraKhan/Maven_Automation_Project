@@ -22,7 +22,7 @@ public class T3_ExtentReports_Yahoo_Enhanced extends testBase {
     }//end of tc001
 
     @Test
-    public void tc002_testtingGitHub() {
+    public void tc002_testingGitHub() {
         //practice committing
     }
 }//end of class

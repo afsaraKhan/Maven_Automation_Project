@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Regression Suite">
+    <test name="Regression Test" preserve-order="true">
+        <classes>
+            <class name="Day14_010224.T3_ExtentReports_Yahoo_Enhanced" />
+            <class name="Day15_010824.T1_googleScreenshot" />
+        </classes>
+    </test> <!-- Test -->
+</suite> <!-- Suite -->

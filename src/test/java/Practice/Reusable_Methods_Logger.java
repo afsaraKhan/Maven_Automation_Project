@@ -327,7 +327,7 @@ public class Reusable_Methods_Logger {
             String fileName = imageName + ".png";
             String directory = null;
             String snPath = null;
-            directory = "src/main/java/HTML_Report/Screenshots/";
+            directory = "src/main/java/HTML_Reports/Screenshots/";
             snPath = "Screenshots//";
             File sourceFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             FileUtils.copyFile(sourceFile, new File(directory + fileName));

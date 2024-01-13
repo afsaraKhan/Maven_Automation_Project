@@ -3,11 +3,9 @@ package Practice;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
@@ -52,6 +50,8 @@ public class Reusable_Methods_Logger {
         } catch (Exception e){
             System.out.println("Unable to access " + elementName + " for reason: " + e);
             logger.log(LogStatus.FAIL, "Unable to click on " + elementName);
+            //attach screenshot if click method fails
+            getScreenShot(driver, elementName, logger);
         }
     }//end of click method
 
@@ -64,6 +64,8 @@ public class Reusable_Methods_Logger {
         }catch(Exception e){
             System.out.println("Unable to access " + elementName + " for reason: " + e);
             logger.log(LogStatus.FAIL, "Failed to Click on " + index + "th " + elementName);
+            //attach screenshot if clickByIndex method fails
+            getScreenShot(driver, elementName, logger);
         }
     }
 
@@ -76,6 +78,8 @@ public class Reusable_Methods_Logger {
         } catch (Exception e){
             System.out.println("Unable to access " + elementName + " for reason :" + e );
             logger.log(LogStatus.FAIL, "Failed to Submit on " + elementName);
+            //attach screenshot if submit method fails
+            getScreenShot(driver, elementName, logger);
         }
     }//end of submit method
 
@@ -90,6 +94,8 @@ public class Reusable_Methods_Logger {
         }catch(Exception e){
             System.out.println("Unable to access " + elementName + " for reason: " + e);
             logger.log(LogStatus.FAIL, "Failed to enter "+ keys + "to " + elementName+ " textField");
+            //attach screenshot if sendKeys method fails
+            getScreenShot(driver, elementName, logger);
         }
     }// end of senKeys method
 
@@ -206,6 +212,8 @@ public class Reusable_Methods_Logger {
         } catch (Exception e){
             System.out.println("Unable to send keys with JSE for reason: " + e);
             logger.log(LogStatus.FAIL, "Failed to Enter "+ keys + " on " + elementName);
+            //attach screenshot if sendKeysWithJSE method fails
+            getScreenShot(driver, elementName, logger);
         }
     }//end of sendKeysWithJSE method
 
@@ -249,6 +257,8 @@ public class Reusable_Methods_Logger {
         catch(Exception e){
             System.out.println("Unable to click" + elementName + "with JSE for reason: " + e);
             logger.log(LogStatus.PASS, "Failed to Click on "+ elementName);
+            //attach screenshot if clickWithJSE method fails
+            getScreenShot(driver, elementName, logger);
         }
     }//end of click with JSE method
 
@@ -264,6 +274,8 @@ public class Reusable_Methods_Logger {
         }catch (Exception e){
             System.out.println("Unable to double click " + elementName + " for reason: " + e);
             logger.log(LogStatus.FAIL, "Failed to double Click on "+ elementName);
+            //attach screenshot if mouseDoubleClick method fails
+            getScreenShot(driver, elementName, logger);
         }
     }//end of mouseDoubleClick method
 
@@ -279,6 +291,8 @@ public class Reusable_Methods_Logger {
         }catch (Exception e){
             System.out.println("Unable to double click " + elementName + " for reason: " + e);
             logger.log(LogStatus.FAIL, "Failed to click on "+elementName);
+            //attach screenshot if mouseRightClick method fails
+            getScreenShot(driver, elementName, logger);
         }
     }//end of mouseRightClick method
 
@@ -306,5 +320,24 @@ public class Reusable_Methods_Logger {
             logger.log(LogStatus.FAIL, "The condition is " + false);
         }
     }//end of isConditionTrue
+
+    //getScreenshot method
+    public static void getScreenShot(WebDriver driver, String imageName, ExtentTest logger) {
+        try {
+            String fileName = imageName + ".png";
+            String directory = null;
+            String snPath = null;
+            directory = "src/main/java/HTML_Report/Screenshots/";
+            snPath = "Screenshots//";
+            File sourceFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            FileUtils.copyFile(sourceFile, new File(directory + fileName));
+            //String imgPath = directory + fileName;
+            String image = logger.addScreenCapture(snPath + fileName);
+            logger.log(LogStatus.FAIL, "", image);
+        } catch (Exception e) {
+            logger.log(LogStatus.FAIL, "Error occurred while taking SCREENSHOT!!!");
+            e.printStackTrace();
+        }
+    }//end of getScreenshot method
 
 }//end of class
